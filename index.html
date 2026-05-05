@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>System Terminal</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0; /* Classic Matrix Green */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        #terminal {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #0f0;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="terminal"></div><span class="cursor"></span>
+
+<script>
+    const lines = [
+        "> Establishing connection to secure_srv_04...",
+        "> Connection established. Port 8080 open.",
+        "> Bypassing firewall... [OK]",
+        "> Injecting SQL payload...",
+        "> Accessing root directory...",
+        "> WARNING: SYSTEM CRITICAL VULNERABILITY DETECTED",
+        "> Downloading user_credentials.db... 12%",
+        "> Downloading user_credentials.db... 48%",
+        "> Downloading user_credentials.db... 89%",
+        "> Download Complete.",
+        "> Initiating 'System Wipe' protocol...",
+        "> ---------------------------------------",
+        "> SYSTEM HACKED BY EXTERNAL ENTITY(Mr. RAAZ)",
+        "> ALL FILES ENCRYPTED.",
+        "> DO NOT TURN OFF YOUR COMPUTER.",
+        "> ---------------------------------------"
+    ];
+
+    const terminal = document.getElementById('terminal');
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+        if (lineIndex < lines.length) {
+            let currentLine = lines[lineIndex];
+            
+            if (charIndex < currentLine.length) {
+                terminal.innerHTML += currentLine.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeLine, 100); // Speed of typing
+            } else {
+                terminal.innerHTML += "<br>";
+                lineIndex++;
+                charIndex = 0;
+                setTimeout(typeLine, 800); // Pause between lines
+            }
+        }
+    }
+
+    // Start the simulation
+    window.onload = typeLine;
+</script>
+
+</body>
+</html>
